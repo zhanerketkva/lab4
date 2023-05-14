@@ -34,6 +34,15 @@ public class HashTable<K, V> {
         chain[index].add(new HashNode<K, V>(key, value));
         size++;
     }
+    public V get(K key) {
+        int index = hash(key);
+        if (chain[index] == null) return null;
+
+        for (HashNode<K, V> node: chain[index]){
+            if(node.getKey().equals(key)) return node.getValue();
+        }
+        return null;
+    }
     public V remove(K key) {
         int index = hash(key);
         if (chain[index] == null) return null;
@@ -48,4 +57,25 @@ public class HashTable<K, V> {
         size--;
         return null;
     }
+    public boolean contains(V value) {
+        for(LinkedList<HashNode<K,V>> list: chain) {
+            for(HashNode<K,V> node: list){
+                if (node.getValue().equals(value)) return true;
+            }
+        }
+        return false;
+    }
+    public K getKey(V value) {
+        for(LinkedList<HashNode<K,V>> list: chain) {
+            for(HashNode<K,V> node: list){
+                if (node.getValue().equals(value)) return node.getKey();
+            }
+        }
+        return null;
+    }
+
+    public int getSize() {
+        return size;
+    }
 }
+
